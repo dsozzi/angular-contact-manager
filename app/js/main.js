@@ -1,7 +1,7 @@
 /**
  * Created by davidesozzi on 14/11/15.
  */
-angular.module('contactApp', [])
+var contactApp = angular.module('contactApp', [])
     .controller('contactListController', ['$scope', function($scope) {
         $scope.contacts = [
             {
