@@ -5,18 +5,12 @@
 describe('Contact List Manager', function() {
     beforeEach(module('contactApp'));
 
-    var $controller,
-        scope;
+    var $controller;
 
-
-    beforeEach(inject(function ($rootScope, $contactController) {
-        scope = $rootScope.$new();
-        $controller = $contactController('contactListController', {
-            $scope: scope
-        });
+    beforeEach(inject(function(_$controller_){
+        // The injector unwraps the underscores (_) from around the parameter names when matching
+        $controller = _$controller_;
     }));
-
-
 
     describe('$scope.inEdit', function() {
         var $scope, controller;
@@ -36,7 +30,7 @@ describe('Contact List Manager', function() {
             expect( $scope.inEdit && $scope.isNewContact && $scope.currentContactIdx).toBeFalsy();
         });
 
-        it('test the save new contact', function() {
+        it('test the "Save New Contact" functionality', function() {
             var contactLength = $scope.contacts.length;
 
             // does it overwrite the function for future reference?
