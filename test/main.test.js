@@ -12,7 +12,7 @@ describe('Contact List Manager', function() {
         $controller = _$controller_;
     }));
 
-    describe('$scope.inEdit', function() {
+    describe('Fully testing the Contact Manager app --- ', function() {
         var $scope, controller;
 
         beforeEach(function() {
@@ -20,32 +20,69 @@ describe('Contact List Manager', function() {
             controller = $controller('contactListController', { $scope: $scope });
         });
 
+
+
         it('test the "New contact" functionality ', function() {
             $scope.newContact();
             expect($scope.inEdit && $scope.isNewContact).toBeTruthy();
         });
 
-        it('resets the app status', function() {
+
+
+        it('reset the app status', function() {
             $scope.cancelEdit();
             expect( $scope.inEdit && $scope.isNewContact && $scope.currentContactIdx).toBeFalsy();
         });
 
+
+
         it('test the "Save New Contact" functionality', function() {
             var contactLength = $scope.contacts.length;
 
-            // does it overwrite the function for future reference?
-            $scope.getContactFormFields = function(){
-                return {
-                    name : 'Test1',
-                    tel: '123-456-789',
-                    email: 'test@test.com'
-                }
-            }
+            $scope.inEdit = {
+                name : 'Davide',
+                tel: '123-456-789',
+                email: 'test@test.com'
+            };
 
             $scope.saveNewContact();
 
             expect($scope.contacts.length).toBe(contactLength + 1);
         });
+
+
+        it('test the form return', function() {
+            $scope.inEdit = {
+                name : 'Davide',
+                tel: '123-456-789-',
+                email: 'test@test.com'
+            };
+
+            var form = $scope.getContactFormFields();
+
+            expect(form).toEqual({
+                name : 'Davide',
+                tel: '123-456-789-',
+                email: 'test@test.com'
+            });
+        });
+
+
+        it('update the first contact', function() {
+            $scope.currentContactIdx = 0;
+            var contact = $scope.contacts[0];
+
+            $scope.inEdit = {
+                name : 'Davide',
+                tel: '123-456-789',
+                email: 'test@test.com'
+            };
+
+            $scope.updateContent()
+
+            expect(contact.name).toEqual('Davide');
+        });
+
     });
 });
 
