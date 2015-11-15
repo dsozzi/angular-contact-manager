@@ -51,6 +51,7 @@ describe('Contact List Manager', function() {
         });
 
 
+
         it('test the form return', function() {
             $scope.inEdit = {
                 name : 'Davide',
@@ -68,6 +69,7 @@ describe('Contact List Manager', function() {
         });
 
 
+
         it('update the first contact', function() {
             $scope.currentContactIdx = 0;
             var contact = $scope.contacts[0];
@@ -78,9 +80,20 @@ describe('Contact List Manager', function() {
                 email: 'test@test.com'
             };
 
-            $scope.updateContent()
+            $scope.updateContact()
 
             expect(contact.name).toEqual('Davide');
+        });
+
+
+
+        it('deletes the last contact', function() {
+            var contactLength = $scope.contacts.length;
+            var contact = $scope.contacts[$scope.contacts-length -1];
+
+            $scope.delete(contact);
+
+            expect( $scope.contacts.length).toBe(contactLength - 1);
         });
 
     });
