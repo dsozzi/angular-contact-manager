@@ -1,7 +1,11 @@
 /**
  * Created by davidesozzi on 14/11/15.
  */
-var contactApp = angular.module('contactApp', [])
+var dependencies = [];
+if (typeof APP_TEST !== "undefined")
+    dependencies.push("ngMock");
+
+var contactApp = angular.module('contactApp', dependencies)
     .controller('contactListController', ['$scope', function($scope) {
         $scope.contacts = [
             {
